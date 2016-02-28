@@ -11,4 +11,6 @@ public interface StreamsPresented {
     void isLoading(boolean loading);
     void showStreamsSuccess(List<StreamViewModel> list);
     void showStreamsError();
+    void fileSentSuccess();
+    void fileSentError(String error);
 }
