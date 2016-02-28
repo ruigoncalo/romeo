@@ -77,6 +77,7 @@ public class Stream {
     }
 
     public boolean isValid(){
-        return chunks != null && others != null;
+        return id != null && !id.isEmpty() &&
+                chunks != null && others != null;
     }
 }

@@ -63,9 +63,7 @@ public class Account {
 
     public boolean isValid(){
         return id != null && !id.isEmpty() &&
-                username != null && !username.isEmpty() &&
-                displayName != null && !displayName.isEmpty() &&
-                imageUrl != null && !imageUrl.isEmpty();
+                displayName != null && !displayName.isEmpty();
     }
 
 }
