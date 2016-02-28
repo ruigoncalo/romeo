@@ -1,14 +1,18 @@
 package com.ruigoncalo.romeo.providers;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by ruigoncalo on 20/02/16.
@@ -139,11 +143,47 @@ public class AudioProvider {
         }
     }
 
-    public File getAudioFile(Context context){
+    public File getAudioFile(Context context) {
         return new File(context.getFilesDir(), FILE_NAME);
     }
 
-    public String calculateDuration(Context context){
+
+    public File getLocalAudioFile(Context context, String name) {
+        File result = new File("audio.mp3");
+
+        try {
+            AssetFileDescriptor descriptor = context.getAssets().openFd(name);
+            writeBytesToFile(descriptor.createInputStream(), result);
+        } catch (IOException e) {
+            if(callback != null){
+                callback.onError("Error reading local file", e);
+            }
+        }
+
+        return result;
+    }
+
+    public void writeBytesToFile(InputStream is, File file) throws IOException {
+        FileOutputStream fos = null;
+        try {
+            byte[] data = new byte[2048];
+            int nbread;
+            fos = new FileOutputStream(file);
+            while ((nbread = is.read(data)) > -1) {
+                fos.write(data, 0, nbread);
+            }
+        } catch (Exception ex) {
+            if(callback != null){
+                callback.onError("Error passing bytes to file", ex);
+            }
+        } finally {
+            if (fos != null) {
+                fos.close();
+            }
+        }
+    }
+
+    public String calculateDuration(Context context) {
         File file = new File(context.getFilesDir(), FILE_NAME);
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaMetadataRetriever.setDataSource(file.getAbsolutePath());
