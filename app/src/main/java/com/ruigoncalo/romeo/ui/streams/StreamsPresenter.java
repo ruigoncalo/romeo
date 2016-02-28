@@ -10,9 +10,12 @@ import com.ruigoncalo.romeo.model.Streams;
 import com.ruigoncalo.romeo.ui.Presenter;
 import com.ruigoncalo.romeo.ui.viewmodel.StreamViewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +62,27 @@ public class StreamsPresenter extends Presenter<StreamsPresented> {
         });
     }
 
+
+    public void sendChunkMessage(String authorization, String id, File file, long duration){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        ApiService.getInstance().uploadChunk(authorization, id, duration, requestBody, new Callback<Stream>() {
+            @Override
+            public void onResponse(Call<Stream> call, Response<Stream> response) {
+                if(getPresented() != null){
+                    getPresented().fileSentSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Stream> call, Throwable t) {
+                if(getPresented() != null){
+                    getPresented().fileSentError("Error uploading message");
+                }
+            }
+        });
+
+    }
+
     @NonNull
     private List<StreamViewModel> convert(@Nullable List<Stream> list) {
         List<StreamViewModel> result = new ArrayList<>();
@@ -80,7 +104,7 @@ public class StreamsPresenter extends Presenter<StreamsPresented> {
         StreamViewModel result = null;
         if (stream.isValid()) {
             String label = getLabel(stream);
-            result = new StreamViewModel(label, stream.getImageUrl());
+            result = new StreamViewModel(stream.getId(), label, stream.getImageUrl());
         }
 
         return result;

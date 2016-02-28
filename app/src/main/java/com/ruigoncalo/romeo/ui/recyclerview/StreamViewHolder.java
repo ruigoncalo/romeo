@@ -19,15 +19,24 @@ import butterknife.ButterKnife;
 public class StreamViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
         ViewHolderRenderer<StreamViewModel> {
 
-    @Bind(R.id.text_label_stream) TextView labelStream;
-    @Bind(R.id.image_stream) ImageView imageStream;
+    //@Bind(R.id.text_label_stream) TextView labelStream;
+    //@Bind(R.id.image_stream) ImageView imageStream;
+
+    private TextView labelStream;
+    private ImageView imageStream;
 
     private ItemClickListener listener;
     private Context context;
 
     public StreamViewHolder(View itemView, ItemClickListener listener) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+
+        // TODO: check why is butterknife causing problems
+        //ButterKnife.bind(this, itemView);
+
+        labelStream = (TextView) itemView.findViewById(R.id.text_label_stream);
+        imageStream = (ImageView) itemView.findViewById(R.id.image_stream);
+
         this.context = itemView.getContext();
         this.listener = listener;
 
