@@ -39,6 +39,10 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder>
         return itemList;
     }
 
+    public void clear(){
+        this.itemList.clear();
+    }
+
     public abstract VH onCreateViewHolder(ViewGroup viewGroup, int viewType);
 
     public abstract void onBindViewHolder(RecyclerView.ViewHolder holder, int position);
