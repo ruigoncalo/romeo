@@ -11,28 +11,30 @@ import android.widget.Toast;
 import com.ruigoncalo.romeo.R;
 import com.ruigoncalo.romeo.model.UserAuth;
 import com.ruigoncalo.romeo.providers.DataProvider;
+import com.ruigoncalo.romeo.ui.streams.StreamsActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by ruigoncalo on 28/02/16.
  */
-public class AuthActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity implements AuthPresented {
 
     @Bind(R.id.text_email) EditText textEmail;
     @Bind(R.id.text_code) EditText textCode;
     @Bind(R.id.button_request_code) Button buttonRequestCode;
     @Bind(R.id.button_submit) Button buttonSubmit;
 
-    private RegisterPresenter presenter;
+    private AuthPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
         ButterKnife.bind(this);
-        presenter = new RegisterPresenter();
+        presenter = new AuthPresenter();
     }
 
     @Override
@@ -87,7 +89,7 @@ public class AuthActivity extends AppCompatActivity {
     public void showCodeSuccess(UserAuth userAuth) {
         if(userAuth != null && userAuth.isValid()){
             DataProvider.getInstance().saveUserAuth(this, userAuth);
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, StreamsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else {
