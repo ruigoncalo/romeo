@@ -55,6 +55,30 @@ public class AudioProvider {
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
     }
 
+    public void playLocal(Context context, String fileName) {
+        if (mediaPlayer == null) {
+            initMediaPlayer();
+        }
+
+        try {
+            AssetFileDescriptor assetFileDescriptor = context.getAssets().openFd(fileName);
+            mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(),
+                    assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            assetFileDescriptor.close();
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
+
+        } catch (IOException exception){
+            if (callback != null) {
+                callback.onError("Error on play local file", exception);
+            }
+        }
+    }
 
     public void play(Context context) {
         if (mediaPlayer == null) {
@@ -149,7 +173,7 @@ public class AudioProvider {
 
 
     public File getLocalAudioFile(Context context, String name) {
-        File result = new File("audio.mp3");
+        File result = new File(context.getFilesDir(), "audio.mp3");
 
         try {
             AssetFileDescriptor descriptor = context.getAssets().openFd(name);

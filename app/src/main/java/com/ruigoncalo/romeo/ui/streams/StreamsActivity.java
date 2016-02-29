@@ -123,6 +123,7 @@ public class StreamsActivity extends AppCompatActivity implements StreamsPresent
     @Override
     public void fileSentSuccess() {
         Toast.makeText(this, "Yey", Toast.LENGTH_LONG).show();
+        AudioProvider.getInstance().playLocal(this, "bitch.mp3");
     }
 
     @Override
