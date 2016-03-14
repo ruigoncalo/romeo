@@ -10,9 +10,6 @@ import com.ruigoncalo.romeo.R;
 import com.ruigoncalo.romeo.imageloader.ImageManager;
 import com.ruigoncalo.romeo.ui.viewmodel.StreamViewModel;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * Created by ruigoncalo on 28/02/16.
  */
