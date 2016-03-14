@@ -7,7 +7,6 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileOutputStream;
