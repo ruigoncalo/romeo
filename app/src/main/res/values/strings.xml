@@ -9,4 +9,6 @@
     <string name="request_profile">Request profile</string>
     <string name="request_stream">Request stream</string>
     <string name="play_local">Play Local</string>
+    <string name="choose_contact">Choose contact:</string>
+    <string name="choose_sample">Choose sample:</string>
 </resources>

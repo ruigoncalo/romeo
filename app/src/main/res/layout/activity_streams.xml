@@ -4,30 +4,37 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/choose_contact"
+        android:textSize="15sp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_streams"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:layout_marginTop="22dp"/>
-
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/send_to"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/text_selected_stream"
         android:padding="12dp"
-        android:layout_gravity="center"
+        android:text="@string/choose_sample"
+        android:textSize="15sp"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_samples"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/text_summary"
+        android:padding="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
-
+        android:textSize="15sp"/>
 
     <Button
         android:id="@+id/button_send"
