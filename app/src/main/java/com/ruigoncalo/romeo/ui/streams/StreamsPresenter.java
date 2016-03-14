@@ -8,6 +8,7 @@ import com.ruigoncalo.romeo.model.Account;
 import com.ruigoncalo.romeo.model.Stream;
 import com.ruigoncalo.romeo.model.Streams;
 import com.ruigoncalo.romeo.ui.Presenter;
+import com.ruigoncalo.romeo.ui.viewmodel.SampleViewModel;
 import com.ruigoncalo.romeo.ui.viewmodel.StreamViewModel;
 
 import java.io.File;
@@ -33,6 +34,22 @@ public class StreamsPresenter extends Presenter<StreamsPresented> {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public void getSamples(){
+        if(getPresented() != null){
+            getPresented().isLoading(true);
+        }
+
+        SampleViewModel sampleViewModel = new SampleViewModel("1", "Arrow", null,
+                "http://www.instantsfun.es/audio/arrow_in_knee.mp3");
+
+        List<SampleViewModel> list = new ArrayList<>(1);
+        list.add(sampleViewModel);
+
+        if(getPresented() != null){
+            getPresented().showSamplesSuccess(list);
+        }
     }
 
     public void getStreams(String authorization) {
@@ -136,5 +153,11 @@ public class StreamsPresenter extends Presenter<StreamsPresented> {
         }
 
         return result;
+    }
+
+    public void downloadSample(String url){
+
+
+
     }
 }
